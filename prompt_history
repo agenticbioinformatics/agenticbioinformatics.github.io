@@ -1,0 +1,31 @@
+Prompt History
+==============
+
+#1 — 2026-05-12
+Prompt:
+  Build a simple GitHub Pages website for storing projects with repository links.
+  Dark gray background with a double helix DNA animation in gradient from blue to green.
+  Short description on top. Two sections: left with projects (name, link, description),
+  right with projects (name, link only). Right section dimmed to draw attention to the left.
+
+Changes:
+  - Created index.html
+  - Animated DNA double helix on a full-screen canvas (blue→green gradient strands,
+    rungs, and nodes, rotating continuously)
+  - Dark #1a1a1e background, two-column grid layout
+  - Hero section with gradient title and placeholder description
+  - Left column: 4 placeholder project cards with name, GitHub link, and description;
+    full opacity with hover lift + green border accent
+  - Right column: 5 placeholder project cards with name and link only;
+    set to ~38% opacity, brightens to 80% on hover
+  - Responsive: columns stack on narrow screens
+
+--------------------------------------------------------------------------------
+
+#2 — 2026-05-12
+Prompt:
+  Create a file prompt_history with my prompts (including this one) and summary
+  of changes for each prompt.
+
+Changes:
+  - Created prompt_history (this file)

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic Bioinformatics</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1a1a1e;
+      --surface: #22222a;
+      --border: #2e2e3a;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --blue: #3b82f6;
+      --green: #22d3a0;
+      --dim: 0.38;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── DNA canvas background ── */
+    #dna-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+
+    /* ── hero ── */
+    .hero {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ── two-column grid ── */
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 720px) {
+      .columns { grid-template-columns: 1fr; }
+      .col-right { opacity: 1 !important; }
+    }
+
+    .col-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .col-right {
+      opacity: var(--dim);
+      transition: opacity 0.3s ease;
+    }
+    .col-right:hover { opacity: 0.8; }
+
+    /* ── project cards ── */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .col-left .project-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .project-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .project-name a {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .project-name a:hover { color: var(--green); }
+
+    .repo-icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    /* right column — no description, just name + link */
+    .col-right .project-name {
+      margin-bottom: 0;
+    }
+
+    /* ── gradient line accent ── */
+    .grad-line {
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="dna-canvas"></canvas>
+
+<div class="page">
+
+  <!-- hero -->
+  <div class="hero">
+    <h1>Agentic Bioinformatics</h1>
+    <p>
+      <!-- Replace with your own description -->
+      A collection of open-source tools and pipelines at the intersection of
+      AI-driven automation and biological data analysis. Each project aims to
+      make complex genomic workflows more reproducible, scalable, and accessible.
+    </p>
+  </div>
+
+  <div class="grad-line"></div>
+
+  <!-- columns -->
+  <div class="columns">
+
+    <!-- LEFT — featured projects -->
+    <div class="col-left">
+      <div class="col-label">Featured Projects</div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-1" target="_blank" rel="noopener">repo-name-1</a>
+        </div>
+        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-2" target="_blank" rel="noopener">repo-name-2</a>
+        </div>
+        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-3" target="_blank" rel="noopener">repo-name-3</a>
+        </div>
+        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-4" target="_blank" rel="noopener">repo-name-4</a>
+        </div>
+        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
+      </div>
+
+    </div><!-- /col-left -->
+
+    <!-- RIGHT — other projects (dimmed) -->
+    <div class="col-right">
+      <div class="col-label">More Projects</div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-5" target="_blank" rel="noopener">repo-name-5</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-6" target="_blank" rel="noopener">repo-name-6</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-7" target="_blank" rel="noopener">repo-name-7</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-8" target="_blank" rel="noopener">repo-name-8</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">
+          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+          </svg>
+          <a href="https://github.com/agenticbioinformatics/repo-name-9" target="_blank" rel="noopener">repo-name-9</a>
+        </div>
+      </div>
+
+    </div><!-- /col-right -->
+
+  </div><!-- /columns -->
+</div><!-- /page -->
+
+<script>
+  /* ── animated DNA double helix ── */
+  (function () {
+    const canvas = document.getElementById('dna-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let W, H, raf;
+    const STRANDS = 2;
+    const NODES = 24;       // base-pair rungs
+    const AMP = 90;         // horizontal swing amplitude
+    const FREQ = 0.38;      // helix coils visible
+    const SPEED = 0.0004;   // rotation speed
+    const NODE_R = 4;
+    const RUNG_ALPHA = 0.18;
+    const STRAND_ALPHA = 0.55;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function lerpColor(t) {
+      // t in [0,1] → blue(59,130,246) to green(34,211,160)
+      const r = Math.round(59  + (34  - 59)  * t);
+      const g = Math.round(130 + (211 - 130) * t);
+      const b = Math.round(246 + (160 - 246) * t);
+      return { r, g, b };
+    }
+
+    function draw(ts) {
+      ctx.clearRect(0, 0, W, H);
+
+      const phase = ts * SPEED;
+      const xCenter = W / 2;
+      const yStep = H / (NODES - 1);
+
+      const pts1 = [];
+      const pts2 = [];
+
+      for (let i = 0; i < NODES; i++) {
+        const yFrac = i / (NODES - 1);
+        const y = yFrac * H;
+        const angle = phase + yFrac * Math.PI * 2 * FREQ;
+        const x1 = xCenter + Math.cos(angle) * AMP;
+        const x2 = xCenter + Math.cos(angle + Math.PI) * AMP;
+        pts1.push({ x: x1, y });
+        pts2.push({ x: x2, y });
+      }
+
+      /* rungs (base pairs) */
+      for (let i = 0; i < NODES; i++) {
+        const t = i / (NODES - 1);
+        const c = lerpColor(t);
+        ctx.strokeStyle = `rgba(${c.r},${c.g},${c.b},${RUNG_ALPHA})`;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pts1[i].x, pts1[i].y);
+        ctx.lineTo(pts2[i].x, pts2[i].y);
+        ctx.stroke();
+      }
+
+      /* strands */
+      [pts1, pts2].forEach((pts) => {
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < pts.length; i++) {
+          const mx = (pts[i - 1].x + pts[i].x) / 2;
+          const my = (pts[i - 1].y + pts[i].y) / 2;
+          ctx.quadraticCurveTo(pts[i - 1].x, pts[i - 1].y, mx, my);
+        }
+        ctx.quadraticCurveTo(pts[pts.length - 1].x, pts[pts.length - 1].y,
+          pts[pts.length - 1].x, pts[pts.length - 1].y);
+
+        const grad = ctx.createLinearGradient(0, 0, 0, H);
+        grad.addColorStop(0, `rgba(59,130,246,${STRAND_ALPHA})`);
+        grad.addColorStop(1, `rgba(34,211,160,${STRAND_ALPHA})`);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      });
+
+      /* nodes */
+      for (let i = 0; i < NODES; i++) {
+        const t = i / (NODES - 1);
+        const c = lerpColor(t);
+        [pts1[i], pts2[i]].forEach((p) => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, NODE_R, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},0.75)`;
+          ctx.fill();
+        });
+      }
+
+      raf = requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    raf = requestAnimationFrame(draw);
+  })();
+</script>
+
+</body>
+</html>

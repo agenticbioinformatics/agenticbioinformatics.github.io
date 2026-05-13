@@ -69,3 +69,36 @@ Prompt:
 
 Changes:
   - Added prompts #3 and #4 to this file
+
+--------------------------------------------------------------------------------
+
+#5 — 2026-05-13
+Prompt:
+  Move the DNA double helix to the right. Move from index.html project names,
+  links and descriptions to two separate files, one for each column, for easy
+  updates. Add a hyperlink to the website title "Agentic Bioinformatics" to
+  https://github.com/agenticbioinformatics/virussusceptibility.
+
+Changes:
+  - DNA helix center shifted from W/2 to W*0.75 (right quarter of the viewport)
+  - Project data extracted from index.html into two JSON files:
+      data/agentic-projects.json  — left column (id, name, url, descriptions[])
+      data/initial-projects.json  — right column (id, name, url)
+  - index.html left/right column bodies replaced with empty container divs
+    (#col-left-cards, #col-right-cards); cards are now rendered at runtime by JS
+    via Promise.all(fetch(...)) loading both JSON files
+  - Title "Agentic Bioinformatics" wrapped in <a> linking to
+    https://github.com/agenticbioinformatics/virussusceptibility (gradient
+    styling preserved, dims to 75% opacity on hover)
+  - Added .project-desc p + p { margin-top: 6px } for paragraph spacing in
+    description blocks (fixing previously invalid nested <p> markup)
+
+--------------------------------------------------------------------------------
+
+#6 — 2026-05-13
+Prompt:
+  Create or update a text file called "prompt_history" with my prompts
+  (including this one) and a summary of changes associated with each prompt.
+
+Changes:
+  - Added prompts #5 and #6 to this file

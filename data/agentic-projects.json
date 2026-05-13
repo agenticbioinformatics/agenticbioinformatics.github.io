@@ -1,0 +1,36 @@
+[
+  {
+    "id": "p1",
+    "name": "virussusceptibility",
+    "url": "https://github.com/agenticbioinformatics/virussusceptibility",
+    "descriptions": [
+      "A Python pipeline to build a vector database from the CORD-19 dataset and query it for relevant scientific articles using semantic similarity.",
+      "Originally developed at the CMU / DNAnexus Hackathon (October 19-21, 2023).",
+      "Time of post-hackathon human and agentic work ~2 hours."
+    ]
+  },
+  {
+    "id": "p2",
+    "name": "repo-name-2",
+    "url": "https://github.com/agenticbioinformatics/repo-name-2",
+    "descriptions": [
+      "Short description of this project — what it does, what problem it solves, and any notable technologies used."
+    ]
+  },
+  {
+    "id": "p3",
+    "name": "repo-name-3",
+    "url": "https://github.com/agenticbioinformatics/repo-name-3",
+    "descriptions": [
+      "Short description of this project — what it does, what problem it solves, and any notable technologies used."
+    ]
+  },
+  {
+    "id": "p4",
+    "name": "repo-name-4",
+    "url": "https://github.com/agenticbioinformatics/repo-name-4",
+    "descriptions": [
+      "Short description of this project — what it does, what problem it solves, and any notable technologies used."
+    ]
+  }
+]

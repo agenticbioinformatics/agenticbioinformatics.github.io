@@ -60,6 +60,9 @@
       margin-bottom: 28px;
     }
 
+    .hero h1 a { text-decoration: none; }
+    .hero h1 a:hover { opacity: 0.75; }
+
     .hero-desc {
       max-width: 700px;
       margin: 0 auto;
@@ -220,6 +223,8 @@
       color: var(--muted);
     }
 
+    .project-desc p + p { margin-top: 6px; }
+
     .col-right .project-name {
       margin-bottom: 0;
     }
@@ -277,7 +282,7 @@
 
   <!-- hero -->
   <div class="hero">
-    <h1>Agentic Bioinformatics</h1>
+    <h1><a href="https://github.com/agenticbioinformatics/virussusceptibility" target="_blank" rel="noopener">Agentic Bioinformatics</a></h1>
     <div class="hero-desc">
       <p>Build into the new era of agentic bioinformatics!
          Here, revolutionary AI agents are improving the technology behind fast scientific prototyping.
@@ -295,10 +300,10 @@
           The technology was created by agentic AI provided by Claude Opus 4.7.""</span>
         </li>
         <li>always maintain a <b>prompt history file</b> with a summary of changes (for instance using this command:
-          <span class="quote-example">"create a file called prompt_history with my prompts (including this one) and a summary of changes
-          associated with each prompt (or add this information to an existing one)"</span>)
+          <span class="quote-example">"create or update a text file called "prompt_history" with my prompts (including this one) and a summary of 
+            changes associated with each prompt"</span>
         </li>
-        <li>add a <b>README</b> for humans and agents</li>
+        <li>add a <b>README</b> file for humans and agents</li>
       </ol>
     </div>
   </div>
@@ -312,99 +317,13 @@
       <!-- LEFT — agentic projects -->
       <div class="col-left">
         <div class="col-label">Agentic Projects</div>
-
-        <div class="project-card" data-left-id="p1">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-1" target="_blank" rel="noopener">repo-name-1</a>
-          </div>
-          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-        </div>
-
-        <div class="project-card" data-left-id="p2">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-2" target="_blank" rel="noopener">repo-name-2</a>
-          </div>
-          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-        </div>
-
-        <div class="project-card" data-left-id="p3">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-3" target="_blank" rel="noopener">repo-name-3</a>
-          </div>
-          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-        </div>
-
-        <div class="project-card" data-left-id="p4">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-4" target="_blank" rel="noopener">repo-name-4</a>
-          </div>
-          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-        </div>
-
+        <div id="col-left-cards"></div>
       </div><!-- /col-left -->
 
       <!-- RIGHT — initial projects (dimmed) -->
       <div class="col-right">
         <div class="col-label">Initial Projects</div>
-
-        <div class="project-card" data-right-id="p1">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-5" target="_blank" rel="noopener">repo-name-5</a>
-          </div>
-        </div>
-
-        <div class="project-card" data-right-id="p2">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-6" target="_blank" rel="noopener">repo-name-6</a>
-          </div>
-        </div>
-
-        <div class="project-card" data-right-id="p3">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-7" target="_blank" rel="noopener">repo-name-7</a>
-          </div>
-        </div>
-
-        <!-- repo-name-8 and repo-name-9 both map to repo-name-4 (one-to-many example) -->
-        <div class="project-card" data-right-id="p4">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-8" target="_blank" rel="noopener">repo-name-8</a>
-          </div>
-        </div>
-
-        <div class="project-card" data-right-id="p5">
-          <div class="project-name">
-            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-            </svg>
-            <a href="https://github.com/agenticbioinformatics/repo-name-9" target="_blank" rel="noopener">repo-name-9</a>
-          </div>
-        </div>
-
+        <div id="col-right-cards"></div>
       </div><!-- /col-right -->
 
     </div><!-- /columns -->
@@ -532,12 +451,31 @@
     });
   }
 
-  window.addEventListener('load', () => {
+  window.addEventListener('resize', drawConnections);
+
+  const REPO_ICON = `<svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/></svg>`;
+
+  Promise.all([
+    fetch('data/agentic-projects.json').then(r => r.json()),
+    fetch('data/initial-projects.json').then(r => r.json())
+  ]).then(([left, right]) => {
+    document.getElementById('col-left-cards').innerHTML = left.map(p => {
+      const descs = p.descriptions ? p.descriptions.map(d => `<p>${d}</p>`).join('') : '';
+      return `<div class="project-card" data-left-id="${p.id}">
+        <div class="project-name">${REPO_ICON}<a href="${p.url}" target="_blank" rel="noopener">${p.name}</a></div>
+        ${descs ? `<div class="project-desc">${descs}</div>` : ''}
+      </div>`;
+    }).join('');
+
+    document.getElementById('col-right-cards').innerHTML = right.map(p =>
+      `<div class="project-card" data-right-id="${p.id}">
+        <div class="project-name">${REPO_ICON}<a href="${p.url}" target="_blank" rel="noopener">${p.name}</a></div>
+      </div>`
+    ).join('');
+
     drawConnections();
     setupHover();
   });
-
-  window.addEventListener('resize', drawConnections);
 
   /* ── Animated DNA double helix ── */
   (function () {
@@ -569,7 +507,7 @@
       ctx.clearRect(0, 0, W, H);
 
       const phase = ts * SPEED;
-      const xCenter = W / 2;
+      const xCenter = W * 0.75;
 
       const pts1 = [];
       const pts2 = [];

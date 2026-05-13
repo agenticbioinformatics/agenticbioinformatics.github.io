@@ -29,3 +29,43 @@ Prompt:
 
 Changes:
   - Created prompt_history (this file)
+
+--------------------------------------------------------------------------------
+
+#3 — 2026-05-13
+Prompt:
+  Format the description on the website, but don't change the text. Repositories
+  on the left should correspond to repositories on the right — add a connecting
+  line. Add a possibility that in the future one project on the left might
+  correspond to several projects on the right. Add a footnote that says
+  "Designed by Jędrzej Kubica [hyperlink to https://github.com/jedrzejkubica]
+  · Crafted with Claude Code [hyperlink to https://claude.com/product/claude-code]."
+
+Changes:
+  - Description restructured into two <p> paragraphs + a styled "Couple of rules:"
+    heading + <ol> list with CSS counters (1), 2), …); text unchanged
+  - Example quotes in rules 2 and 3 displayed as indented block-quote spans
+  - SVG overlay (#connector-svg) added as absolute-positioned element inside
+    .mapping-wrapper; JS draws cubic bezier curves from the right-center of each
+    left card to the left-center of its connected right card(s)
+  - connectionMap array in JS defines all left→right relationships; supports
+    one-to-many (e.g. repo-name-4 → repo-name-8 + repo-name-9)
+  - Hover interaction: mousing over a left card brightens its line(s) to full
+    opacity and adds .connected-hover (blue border, full opacity) to the
+    corresponding right card(s)
+  - Right column opacity moved from .col-right to individual .col-right .project-card
+    so hover highlighting can override per-card
+  - Footer added with "Designed by Jędrzej Kubica · Crafted with Claude Code"
+    and hyperlinks
+  - Connector lines hidden on mobile (<720 px) where columns stack
+
+--------------------------------------------------------------------------------
+
+#4 — 2026-05-13
+Prompt:
+  Create a file called prompt_history with my prompts (including this one) and
+  a summary of changes associated with each prompt (or add this information to
+  an existing one).
+
+Changes:
+  - Added prompts #3 and #4 to this file

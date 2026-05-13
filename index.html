@@ -19,14 +19,13 @@
     }
 
     html, body {
-      height: 100%;
+      min-height: 100%;
       background: var(--bg);
       color: var(--text);
       font-family: 'Segoe UI', system-ui, sans-serif;
       overflow-x: hidden;
     }
 
-    /* ── DNA canvas background ── */
     #dna-canvas {
       position: fixed;
       inset: 0;
@@ -36,13 +35,12 @@
       pointer-events: none;
     }
 
-    /* ── layout ── */
     .page {
       position: relative;
       z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 32px 80px;
+      padding: 60px 32px 40px;
     }
 
     /* ── hero ── */
@@ -59,15 +57,82 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 16px;
+      margin-bottom: 28px;
     }
 
-    .hero p {
-      max-width: 680px;
+    .hero-desc {
+      max-width: 700px;
       margin: 0 auto;
-      font-size: 1.05rem;
-      line-height: 1.7;
+      font-size: 0.95rem;
+      line-height: 1.75;
       color: var(--muted);
+      text-align: left;
+    }
+
+    .hero-desc > p {
+      margin-bottom: 14px;
+    }
+
+    .rules-label {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.92rem;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .rules-list {
+      list-style: none;
+      counter-reset: rules;
+      padding: 0;
+    }
+
+    .rules-list li {
+      counter-increment: rules;
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .rules-list li::before {
+      content: counter(rules) ")";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .rules-list b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .quote-example {
+      display: block;
+      margin: 6px 0 2px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.03);
+      border-left: 2px solid var(--border);
+      border-radius: 0 4px 4px 0;
+      font-style: italic;
+      font-size: 0.87rem;
+      color: rgba(148,163,184,0.8);
+    }
+
+    /* ── gradient line accent ── */
+    .grad-line {
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* ── mapping wrapper holds columns + SVG overlay ── */
+    .mapping-wrapper {
+      position: relative;
     }
 
     /* ── two-column grid ── */
@@ -80,7 +145,7 @@
 
     @media (max-width: 720px) {
       .columns { grid-template-columns: 1fr; }
-      .col-right { opacity: 1 !important; }
+      #connector-svg { display: none; }
     }
 
     .col-label {
@@ -93,12 +158,6 @@
       padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
     }
-
-    .col-right {
-      opacity: var(--dim);
-      transition: opacity 0.3s ease;
-    }
-    .col-right:hover { opacity: 0.8; }
 
     /* ── project cards ── */
     .project-card {
@@ -113,6 +172,22 @@
     .col-left .project-card:hover {
       border-color: var(--green);
       transform: translateY(-2px);
+    }
+
+    /* right column cards are individually dimmed */
+    .col-right .project-card {
+      opacity: var(--dim);
+      transition: border-color 0.2s, opacity 0.3s;
+    }
+
+    .col-right:hover .project-card {
+      opacity: 0.7;
+    }
+
+    /* highlighted when corresponding left card is hovered */
+    .col-right .project-card.connected-hover {
+      opacity: 1;
+      border-color: var(--blue);
     }
 
     .project-name {
@@ -145,17 +220,52 @@
       color: var(--muted);
     }
 
-    /* right column — no description, just name + link */
     .col-right .project-name {
       margin-bottom: 0;
     }
 
-    /* ── gradient line accent ── */
-    .grad-line {
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue), var(--green));
-      border-radius: 2px;
-      margin-bottom: 28px;
+    /* ── SVG connector overlay ── */
+    #connector-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 2;
+    }
+
+    /* ── footer ── */
+    .site-footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-top: 48px;
+      padding: 20px 32px 32px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.55;
+      border-top: 1px solid var(--border);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .site-footer a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(148,163,184,0.3);
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+
+    .site-footer a:hover {
+      opacity: 1;
+      border-bottom-color: var(--muted);
+    }
+
+    .site-footer .sep {
+      margin: 0 8px;
     }
   </style>
 </head>
@@ -168,145 +278,277 @@
   <!-- hero -->
   <div class="hero">
     <h1>Agentic Bioinformatics</h1>
-    <p>
-      <!-- Description -->
-       Build into the new era of agentic bioinformatics!
-       
-       Here, revolutionary AI agents are not for science but for technology. Agents are never asked what to do,
-       but are told what to do. Ideas from previous hackathons are turned into working software packages, while
-       ensuring clarity about contributions and credits to the authors. In addition, each project is accompanied
-       by a prompt history file that documents the decision-making process, making it easy to follow. The objective
-       is to turn complex genomic workflows into reproducible, scalable and accessible tools, and to motivate others to 
-       build upon those projects.
-
-       Couple of rules:
-        1) each project is accompanied by an open-source license (e.g. MIT, GNU)
-        2) licenses include attribution to the original authors, for example
-        ""The scientific idea was introduced by [Author Name] at the hackathon [Hackathon Name] on May 9-10, 2026.
-        The technology was created by agentic AI provided by Claude Opus 4.7.""
-        3) there is always a prompt history file with summary (can be created with the following prompt:
-        "create a file prompt_history with my prompts (including this one) and summary of changes for each prompt")
-        4) add READMEs for humans and agents
-    </p>
+    <div class="hero-desc">
+      <p>Build into the new era of agentic bioinformatics!
+         Here, revolutionary AI agents are improving the technology behind fast scientific prototyping.
+         Agents are never asked what to do, but are told what to do.</p>
+      <p>Ideas from previous hackathons are turned into working software packages, while
+         ensuring credits to the authors and clarity about contributions.
+         In addition, each project is accompanied by a prompt history file that documents the process, making it easy to trace back.
+         The objective is to turn scientifically-sound prototype genomic workflows into reproducible, scalable and accessible tools,
+         as well as to motivate others to build upon those projects.</p>
+      <p class="rules-label">Couple of rules:</p>
+      <ol class="rules-list">
+        <li>each project is accompanied by an <b>open-source license</b> (e.g. MIT, GNU)</li>
+        <li>licenses include attribution to the authors, <b>humans and agents</b>, for example
+          <span class="quote-example">""The scientific idea was introduced by [Author Name] at the hackathon [Hackathon Name] on May 9-10, 2026.
+          The technology was created by agentic AI provided by Claude Opus 4.7.""</span>
+        </li>
+        <li>always maintain a <b>prompt history file</b> with a summary of changes (for instance using this command:
+          <span class="quote-example">"create a file called prompt_history with my prompts (including this one) and a summary of changes
+          associated with each prompt (or add this information to an existing one)"</span>)
+        </li>
+        <li>add a <b>README</b> for humans and agents</li>
+      </ol>
+    </div>
   </div>
 
   <div class="grad-line"></div>
 
-  <!-- columns -->
-  <div class="columns">
+  <!-- mapping section: left projects ←—connecting lines—→ right projects -->
+  <div class="mapping-wrapper">
+    <div class="columns">
 
-    <!-- LEFT — agentic projects -->
-    <div class="col-left">
-      <div class="col-label">Agentic Projects</div>
+      <!-- LEFT — agentic projects -->
+      <div class="col-left">
+        <div class="col-label">Agentic Projects</div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-1" target="_blank" rel="noopener">repo-name-1</a>
+        <div class="project-card" data-left-id="p1">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-1" target="_blank" rel="noopener">repo-name-1</a>
+          </div>
+          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
         </div>
-        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-      </div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-2" target="_blank" rel="noopener">repo-name-2</a>
+        <div class="project-card" data-left-id="p2">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-2" target="_blank" rel="noopener">repo-name-2</a>
+          </div>
+          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
         </div>
-        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-      </div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-3" target="_blank" rel="noopener">repo-name-3</a>
+        <div class="project-card" data-left-id="p3">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-3" target="_blank" rel="noopener">repo-name-3</a>
+          </div>
+          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
         </div>
-        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-      </div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-4" target="_blank" rel="noopener">repo-name-4</a>
+        <div class="project-card" data-left-id="p4">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-4" target="_blank" rel="noopener">repo-name-4</a>
+          </div>
+          <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
         </div>
-        <p class="project-desc">Short description of this project — what it does, what problem it solves, and any notable technologies used.</p>
-      </div>
 
-    </div><!-- /col-left -->
+      </div><!-- /col-left -->
 
-    <!-- RIGHT — previous projects (dimmed) -->
-    <div class="col-right">
-      <div class="col-label">Initial Projects</div>
+      <!-- RIGHT — initial projects (dimmed) -->
+      <div class="col-right">
+        <div class="col-label">Initial Projects</div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-5" target="_blank" rel="noopener">repo-name-5</a>
+        <div class="project-card" data-right-id="p1">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-5" target="_blank" rel="noopener">repo-name-5</a>
+          </div>
         </div>
-      </div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-6" target="_blank" rel="noopener">repo-name-6</a>
+        <div class="project-card" data-right-id="p2">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-6" target="_blank" rel="noopener">repo-name-6</a>
+          </div>
         </div>
-      </div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-7" target="_blank" rel="noopener">repo-name-7</a>
+        <div class="project-card" data-right-id="p3">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-7" target="_blank" rel="noopener">repo-name-7</a>
+          </div>
         </div>
-      </div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-8" target="_blank" rel="noopener">repo-name-8</a>
+        <!-- repo-name-8 and repo-name-9 both map to repo-name-4 (one-to-many example) -->
+        <div class="project-card" data-right-id="p4">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-8" target="_blank" rel="noopener">repo-name-8</a>
+          </div>
         </div>
-      </div>
 
-      <div class="project-card">
-        <div class="project-name">
-          <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
-          </svg>
-          <a href="https://github.com/agenticbioinformatics/repo-name-9" target="_blank" rel="noopener">repo-name-9</a>
+        <div class="project-card" data-right-id="p5">
+          <div class="project-name">
+            <svg class="repo-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v10.795a.75.75 0 0 1-1.153.633L8 11.132l-4.847 2.796A.75.75 0 0 1 2 13.295V2.5z"/>
+            </svg>
+            <a href="https://github.com/agenticbioinformatics/repo-name-9" target="_blank" rel="noopener">repo-name-9</a>
+          </div>
         </div>
-      </div>
 
-    </div><!-- /col-right -->
+      </div><!-- /col-right -->
 
-  </div><!-- /columns -->
+    </div><!-- /columns -->
+
+    <!-- SVG overlay: connecting lines drawn by JS below -->
+    <svg id="connector-svg" aria-hidden="true"></svg>
+
+  </div><!-- /mapping-wrapper -->
+
 </div><!-- /page -->
 
+<footer class="site-footer">
+  Designed by <a href="https://github.com/jedrzejkubica" target="_blank" rel="noopener">Jędrzej Kubica</a>
+  <span class="sep">·</span>
+  Crafted with <a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Claude Code</a>
+</footer>
+
 <script>
-  /* ── animated DNA double helix ── */
+  /* ── Connection map ──────────────────────────────────────────────────────
+     Each entry: { left: 'pX', right: ['pA', 'pB', ...] }
+     One left project can map to multiple right projects (one-to-many).
+     To add or change connections, edit this array only.
+  ── */
+  const connectionMap = [
+    { left: 'p1', right: ['p1'] },
+    { left: 'p2', right: ['p2'] },
+    { left: 'p3', right: ['p3'] },
+    { left: 'p4', right: ['p4', 'p5'] }, // one-to-many: repo-name-4 → repo-name-8 + repo-name-9
+  ];
+
+  let hoverData = {};
+
+  function drawConnections() {
+    const svg = document.getElementById('connector-svg');
+    const wrapper = document.querySelector('.mapping-wrapper');
+    if (!svg || !wrapper) return;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const ns = 'http://www.w3.org/2000/svg';
+
+    svg.innerHTML = '';
+    hoverData = {};
+
+    const defs = document.createElementNS(ns, 'defs');
+    svg.appendChild(defs);
+
+    connectionMap.forEach((conn) => {
+      const leftCard = wrapper.querySelector(`[data-left-id="${conn.left}"]`);
+      if (!leftCard) return;
+
+      const leftRect = leftCard.getBoundingClientRect();
+      const x1 = leftRect.right - wrapperRect.left;
+      const y1 = leftRect.top + leftRect.height / 2 - wrapperRect.top;
+
+      const paths = [];
+      const rightCards = [];
+
+      conn.right.forEach((rightId, ridx) => {
+        const rightCard = wrapper.querySelector(`[data-right-id="${rightId}"]`);
+        if (!rightCard) return;
+
+        rightCards.push(rightCard);
+
+        const rightRect = rightCard.getBoundingClientRect();
+        const x2 = rightRect.left - wrapperRect.left;
+        const y2 = rightRect.top + rightRect.height / 2 - wrapperRect.top;
+
+        // Per-segment gradient (userSpaceOnUse so it follows the path direction)
+        const gradId = `conn-grad-${conn.left}-${ridx}`;
+        const grad = document.createElementNS(ns, 'linearGradient');
+        grad.setAttribute('id', gradId);
+        grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+        grad.setAttribute('x1', x1); grad.setAttribute('y1', y1);
+        grad.setAttribute('x2', x2); grad.setAttribute('y2', y2);
+        ['#3b82f6', '#22d3a0'].forEach((color, si) => {
+          const stop = document.createElementNS(ns, 'stop');
+          stop.setAttribute('offset', si === 0 ? '0%' : '100%');
+          stop.setAttribute('stop-color', color);
+          grad.appendChild(stop);
+        });
+        defs.appendChild(grad);
+
+        // Cubic bezier: control points spread 60px outward for a smooth S-curve
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', `M ${x1} ${y1} C ${x1 + 60} ${y1}, ${x2 - 60} ${y2}, ${x2} ${y2}`);
+        path.setAttribute('stroke', `url(#${gradId})`);
+        path.setAttribute('stroke-width', '1.5');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('opacity', '0.32');
+        svg.appendChild(path);
+        paths.push(path);
+
+        // Small dots at connection endpoints
+        [[x1, y1, '#3b82f6'], [x2, y2, '#22d3a0']].forEach(([cx, cy, fill]) => {
+          const dot = document.createElementNS(ns, 'circle');
+          dot.setAttribute('cx', cx); dot.setAttribute('cy', cy);
+          dot.setAttribute('r', '3'); dot.setAttribute('fill', fill);
+          dot.setAttribute('opacity', '0.45');
+          svg.appendChild(dot);
+        });
+      });
+
+      hoverData[conn.left] = { paths, rightCards };
+    });
+  }
+
+  function setupHover() {
+    connectionMap.forEach((conn) => {
+      const leftCard = document.querySelector(`[data-left-id="${conn.left}"]`);
+      if (!leftCard) return;
+
+      leftCard.addEventListener('mouseenter', () => {
+        const d = hoverData[conn.left];
+        if (!d) return;
+        d.paths.forEach(p => p.setAttribute('opacity', '0.9'));
+        d.rightCards.forEach(c => c.classList.add('connected-hover'));
+      });
+
+      leftCard.addEventListener('mouseleave', () => {
+        const d = hoverData[conn.left];
+        if (!d) return;
+        d.paths.forEach(p => p.setAttribute('opacity', '0.32'));
+        d.rightCards.forEach(c => c.classList.remove('connected-hover'));
+      });
+    });
+  }
+
+  window.addEventListener('load', () => {
+    drawConnections();
+    setupHover();
+  });
+
+  window.addEventListener('resize', drawConnections);
+
+  /* ── Animated DNA double helix ── */
   (function () {
     const canvas = document.getElementById('dna-canvas');
     const ctx = canvas.getContext('2d');
 
-    let W, H, raf;
-    const STRANDS = 2;
-    const NODES = 24;       // base-pair rungs
-    const AMP = 90;         // horizontal swing amplitude
-    const FREQ = 0.38;      // helix coils visible
-    const SPEED = 0.0004;   // rotation speed
+    let W, H;
+    const NODES = 24;
+    const AMP = 90;
+    const FREQ = 0.38;
+    const SPEED = 0.0004;
     const NODE_R = 4;
     const RUNG_ALPHA = 0.18;
     const STRAND_ALPHA = 0.55;
@@ -317,7 +559,6 @@
     }
 
     function lerpColor(t) {
-      // t in [0,1] → blue(59,130,246) to green(34,211,160)
       const r = Math.round(59  + (34  - 59)  * t);
       const g = Math.round(130 + (211 - 130) * t);
       const b = Math.round(246 + (160 - 246) * t);
@@ -329,7 +570,6 @@
 
       const phase = ts * SPEED;
       const xCenter = W / 2;
-      const yStep = H / (NODES - 1);
 
       const pts1 = [];
       const pts2 = [];
@@ -344,7 +584,6 @@
         pts2.push({ x: x2, y });
       }
 
-      /* rungs (base pairs) */
       for (let i = 0; i < NODES; i++) {
         const t = i / (NODES - 1);
         const c = lerpColor(t);
@@ -356,7 +595,6 @@
         ctx.stroke();
       }
 
-      /* strands */
       [pts1, pts2].forEach((pts) => {
         ctx.beginPath();
         ctx.moveTo(pts[0].x, pts[0].y);
@@ -367,7 +605,6 @@
         }
         ctx.quadraticCurveTo(pts[pts.length - 1].x, pts[pts.length - 1].y,
           pts[pts.length - 1].x, pts[pts.length - 1].y);
-
         const grad = ctx.createLinearGradient(0, 0, 0, H);
         grad.addColorStop(0, `rgba(59,130,246,${STRAND_ALPHA})`);
         grad.addColorStop(1, `rgba(34,211,160,${STRAND_ALPHA})`);
@@ -376,7 +613,6 @@
         ctx.stroke();
       });
 
-      /* nodes */
       for (let i = 0; i < NODES; i++) {
         const t = i / (NODES - 1);
         const c = lerpColor(t);
@@ -388,12 +624,12 @@
         });
       }
 
-      raf = requestAnimationFrame(draw);
+      requestAnimationFrame(draw);
     }
 
     window.addEventListener('resize', resize);
     resize();
-    raf = requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
   })();
 </script>
 

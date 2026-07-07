@@ -11,10 +11,12 @@
   },
   {
     "id": "p2",
-    "name": "repo-name-2",
-    "url": "https://github.com/agenticbioinformatics/repo-name-2",
+    "name": "GNN_Gene_Prioritization",
+    "url": "https://github.com/agenticbioinformatics/GNN_Gene_Prioritization",
     "descriptions": [
-      "Short description of this project — what it does, what problem it solves, and any notable technologies used."
+      "Compares GNN-based and a network-propagation methods for prioritizing candidate disease genes.",
+      "Originally developed at the BioAI Hackathon at the University of Warsaw (May 12–15, 2025).",
+      "Time of post-hackathon human and agentic work ~1 hour."
     ]
   },
   {

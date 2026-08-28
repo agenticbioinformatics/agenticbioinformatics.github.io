@@ -1,8 +1,8 @@
 [
   {
     "id": "p1",
-    "name": "virussusceptibility",
-    "url": "https://github.com/collaborativebioinformatics/virussusceptibility"
+    "name": "targets-from-pathways",
+    "url": "https://github.com/jedrzejkubica/targets-from-pathways"
   },
   {
     "id": "p2",
@@ -11,8 +11,8 @@
   },
   {
     "id": "p3",
-    "name": "repo-name-7",
-    "url": "https://github.com/agenticbioinformatics/repo-name-7"
+    "name": "virussusceptibility",
+    "url": "https://github.com/collaborativebioinformatics/virussusceptibility"
   },
   {
     "id": "p4",

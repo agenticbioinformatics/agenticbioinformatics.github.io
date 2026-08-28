@@ -1,30 +1,32 @@
 [
   {
     "id": "p1",
-    "name": "virussusceptibility",
-    "url": "https://github.com/agenticbioinformatics/virussusceptibility",
+    "name": "Targets from pathways",
+    "url": "https://github.com/agenticbioinformatics/targets-from-pathways",
     "descriptions": [
-      "A Python pipeline to build a vector database from the CORD-19 dataset and query it for relevant scientific articles using semantic similarity.",
-      "Originally developed at the CMU / DNAnexus Hackathon (October 19-21, 2023).",
-      "Time of post-hackathon human and agentic work ~2 hours."
+      "A Python pipeline that, given a target and a disease, ranks candidate alternative targets using a pathway-based gene-gene graph.",
+      "Originally developed at the Open Targets Hackathon (October 21-22, 2025).",
+      "Time of post-hackathon human and agentic work ~3 days."
     ]
   },
   {
     "id": "p2",
-    "name": "GNN_Gene_Prioritization",
+    "name": "GNN gene prioritization",
     "url": "https://github.com/agenticbioinformatics/GNN_Gene_Prioritization",
     "descriptions": [
       "Compares GNN-based and a network-propagation methods for prioritizing candidate disease genes.",
-      "Originally developed at the BioAI Hackathon at the University of Warsaw (May 12–15, 2025).",
+      "Originally developed at the BioAI Hackathon at the University of Warsaw (May 12-15, 2025).",
       "Time of post-hackathon human and agentic work ~1 hour."
     ]
   },
   {
     "id": "p3",
-    "name": "repo-name-3",
-    "url": "https://github.com/agenticbioinformatics/repo-name-3",
+    "name": "Virus susceptibility",
+    "url": "https://github.com/agenticbioinformatics/virussusceptibility",
     "descriptions": [
-      "Short description of this project — what it does, what problem it solves, and any notable technologies used."
+      "A Python pipeline to build a vector database from the CORD-19 dataset and query it for relevant scientific articles using semantic similarity.",
+      "Originally developed at the CMU / DNAnexus Hackathon (October 19-21, 2023).",
+      "Time of post-hackathon human and agentic work ~2 hours."
     ]
   },
   {
